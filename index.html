@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absensi Bawaslu Garut</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Background decorative elements -->
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+
+        <main class="glass-panel">
+            <header class="header">
+                <div class="logo-container">
+                    <!-- Placeholder untuk custom logo -->
+                    <div class="logo-placeholder">
+                        <img src="logo.png" alt="Logo Bawaslu">
+                    </div>
+                    <h1>ABSENSI <span>BAWASLU GARUT</span></h1>
+                </div>
+                <div class="clock" id="digitalClock">00:00:00</div>
+                <div class="date" id="currentDate">Memuat tanggal...</div>
+            </header>
+
+            <section class="identity-section">
+                <div class="input-group">
+                    <label for="employeeName">Nama / ID Karyawan</label>
+                    <input type="text" id="employeeName" placeholder="Masukkan nama Anda..." required>
+                </div>
+            </section>
+
+            <section class="camera-section">
+                <div class="camera-wrapper">
+                    <video id="cameraStream" autoplay playsinline></video>
+                    <div class="camera-overlay">
+                        <div class="face-guide"></div>
+                    </div>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                    <img id="photoPreview" style="display: none;" alt="Preview">
+                </div>
+                <button id="retakeBtn" class="btn btn-secondary hidden">
+                    <i data-lucide="refresh-cw"></i> Ambil Ulang
+                </button>
+            </section>
+
+            <section class="location-section">
+                <div class="location-status" id="locationStatus">
+                    <i data-lucide="map-pin"></i> <span>Menunggu akses lokasi...</span>
+                </div>
+            </section>
+
+            <div class="action-buttons">
+                <button id="btnIn" class="btn btn-primary" disabled>
+                    <i data-lucide="log-in"></i> Absen Masuk
+                </button>
+                <button id="btnOut" class="btn btn-warning" disabled>
+                    <i data-lucide="log-out"></i> Absen Pulang
+                </button>
+            </div>
+
+            <div id="statusMessage" class="status-message"></div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
