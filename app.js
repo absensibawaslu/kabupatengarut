@@ -1,5 +1,5 @@
 // GANTI URL INI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzMeqQv7B2GY9OOLSU18MjjAAXj4VPeVizPspcvIVWlgw7YWAr9EXCrr55V4zxLWBJapg/exec';
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzsC0nUVSDNxkZiPSZSgcqOXZw3gW_uGoI_gEIdVOxWaGtWStfjZya-vtoYPX0IxV5_qg/exec';
 
 // DOM Elements
 const digitalClock = document.getElementById('digitalClock');
@@ -13,6 +13,23 @@ const btnIn = document.getElementById('btnIn');
 const btnOut = document.getElementById('btnOut');
 const employeeNameInput = document.getElementById('employeeName');
 const statusMessage = document.getElementById('statusMessage');
+
+// Modal Elements
+const successModal = document.getElementById('successModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalMessage = document.getElementById('modalMessage');
+const modalBtn = document.getElementById('modalBtn');
+
+modalBtn.addEventListener('click', () => {
+    successModal.classList.add('hidden');
+});
+
+function showSuccessModal(title, message) {
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    successModal.classList.remove('hidden');
+    lucide.createIcons();
+}
 
 // State
 let currentLocation = null;
@@ -172,6 +189,7 @@ async function submitAttendance(type) {
         });
 
         showStatus('Data Absen ' + type + ' Terkirim! Cek Spreadsheet Anda.', 'success');
+        showSuccessModal('Berhasil!', `Data Absen ${type} berhasil dikirim.`);
 
         setTimeout(() => {
             startCamera();

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absensi Bawaslu Garut</title>
+    <title>ABSENSI WFH BAWASLU KAB. GARUT</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -23,7 +23,7 @@
                     <div class="logo-placeholder">
                         <img src="logo.png" alt="Logo Bawaslu">
                     </div>
-                    <h1>ABSENSI <span>BAWASLU GARUT</span></h1>
+                    <h1>ABSENSI WFH <span>BAWASLU KAB. GARUT</span></h1>
                 </div>
                 <div class="clock" id="digitalClock">00:00:00</div>
                 <div class="date" id="currentDate">Memuat tanggal...</div>
@@ -31,7 +31,7 @@
 
             <section class="identity-section">
                 <div class="input-group">
-                    <label for="employeeName">Nama / ID Karyawan</label>
+                    <label for="employeeName">Nama Pegawai</label>
                     <input type="text" id="employeeName" placeholder="Masukkan nama Anda..." required>
                 </div>
             </section>
@@ -67,6 +67,18 @@
 
             <div id="statusMessage" class="status-message"></div>
         </main>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-icon-wrapper">
+                <i data-lucide="check" class="modal-icon"></i>
+            </div>
+            <h2 id="modalTitle">Berhasil!</h2>
+            <p id="modalMessage">Data absensi berhasil dikirim.</p>
+            <button id="modalBtn" class="btn btn-primary">Tutup</button>
+        </div>
     </div>
 
     <script src="app.js"></script>

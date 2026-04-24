@@ -20,14 +20,21 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #4c0519 0%, #0c0a09 50%, #451a03 100%);
-    background-attachment: fixed;
+    background: linear-gradient(135deg, #4c0519 0%, #1a050f 30%, #0c0a09 70%, #451a03 100%);
+    background-size: 200% 200%;
+    animation: gradientBG 15s ease infinite;
     color: var(--text-primary);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow-x: hidden;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .app-container {
@@ -73,13 +80,15 @@ body {
 
 /* Glassmorphism Panel */
 .glass-panel {
-    background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--glass-border);
+    background: linear-gradient(145deg, rgba(225, 29, 72, 0.15) 0%, rgba(28, 25, 23, 0.7) 40%, rgba(28, 25, 23, 0.7) 60%, rgba(251, 191, 36, 0.1) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 24px;
     padding: 32px 24px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 40px rgba(225, 29, 72, 0.1);
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -100,19 +109,54 @@ body {
 }
 
 .logo-placeholder {
-    height: 120px; /* Diperbesar */
-    width: auto;
+    width: 130px;
+    height: 130px;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: visible;
+    background: radial-gradient(circle, #ffffff 0%, #f8fafc 100%);
+    border-radius: 50%;
+    position: relative;
+    animation: logoFloat 4s ease-in-out infinite alternate;
+}
+
+.logo-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-gold), #9f1239, var(--accent-color));
+    background-size: 200% 200%;
+    border-radius: 50%;
+    z-index: -1;
+    filter: blur(12px);
+    animation: spinGlow 5s linear infinite;
+}
+
+.logo-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-color));
+    border-radius: 50%;
+    z-index: -1;
 }
 
 .logo-placeholder img {
-    height: 100%;
-    width: auto;
+    width: 75%;
+    height: 75%;
     object-fit: contain;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+    mix-blend-mode: multiply;
+    z-index: 2;
+}
+
+@keyframes logoFloat {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-8px) scale(1.03); }
+}
+
+@keyframes spinGlow {
+    0% { background-position: 0% 50%; transform: rotate(0deg); }
+    100% { background-position: 100% 50%; transform: rotate(360deg); }
 }
 
 .logo-icon {
@@ -161,8 +205,8 @@ body {
 }
 
 .input-group input {
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 14px 16px;
     color: white;
@@ -172,6 +216,7 @@ body {
 }
 
 .input-group input:focus {
+    background: rgba(255, 255, 255, 0.1);
     border-color: var(--accent-color);
     box-shadow: 0 0 0 2px var(--accent-glow);
 }
@@ -220,7 +265,8 @@ body {
     gap: 8px;
     font-size: 14px;
     color: var(--text-secondary);
-    background: rgba(15, 23, 42, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 12px;
     border-radius: 12px;
 }
@@ -338,4 +384,80 @@ body {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal Popup */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content {
+    background: linear-gradient(145deg, rgba(225, 29, 72, 0.15) 0%, rgba(28, 25, 23, 0.9) 50%, rgba(251, 191, 36, 0.1) 100%);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+    max-width: 340px;
+    width: 90%;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 30px rgba(225, 29, 72, 0.15);
+}
+
+.modal-overlay.hidden .modal-content {
+    transform: scale(0.9);
+}
+
+.modal-icon-wrapper {
+    width: 72px;
+    height: 72px;
+    background: rgba(16, 185, 129, 0.2);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
+    color: var(--success);
+}
+
+.modal-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.modal-content h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: white;
+}
+
+.modal-content p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.modal-content .btn {
+    width: 100%;
 }
